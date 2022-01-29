@@ -1,0 +1,143 @@
+{
+  "title": "Virual Can Device Configuration",
+  "description": "An interface for creating Mock can devices. These mock devices are intended to simulate waterloop embeded devices at the level of sending and receiving can messages. This enables our developers to determine how the device under test interacts with other devices without needing direct access to the other devices.",
+  "$id": "https://teamwaterloop.ca/schema/virtual-can-device",
+  "type": "object",
+  "properties": {
+    "info": {
+      "title": "Configuration Info",
+      "description": "Provide Information about the configuration",
+      "type": "object",
+      "properties": {
+        "author": {
+          "description": "The Creator of the Config.",
+          "type": "string"
+        },
+        "subteam": {
+          "type": "string",
+          "default": "Firmware"
+        },
+        "dateCreated": {
+          "type": "string",
+          "default": "Will be Set Later"
+        }
+      }
+    },
+    "devices": {
+      "title": "Devices",
+      "description": "Each device is either a Producer or a Responder. A Producer sends periodic messages. A responder responds to messages.",
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "title": "Producer",
+            "$ref": "#/definitions/producer"
+          },
+          {
+            "title": "Responder",
+            "$ref": "#/definitions/responder"
+          }
+        ],
+        "minItems": 1
+      }
+    }
+  },
+  "definitions": {
+    "responderHook": {
+      "description": "A responder hook contains an incomming message, a latency, and an outgoing message. The incomming message triggers the hook. The responder then waits a number of milliseconds equal to the latency, and then sends the outgoing message",
+      "type": "object",
+      "properties": {
+        "incommingMessage": {
+          "$ref": "#/definitions/inMessage"
+        },
+        "latency": {
+          "type": "number",
+          "minimum": 0
+        },
+        "outgoingMessage": {
+          "$ref": "#/definitions/outMessage"
+        }
+      }
+    },
+    "producer": {
+      "description": "A producer periodically puts data onto the can bus",
+      "type": "object",
+      "properties": {
+        "device_type": {
+          "type": "string",
+          "default": "producer",
+          "enum": ["producer"]
+        },
+        "name": {
+          "title": "Device Name",
+          "type": "string"
+        },
+        "messages": {
+          "description": "Either a single message, or a list of messages which are sent in order and then repeated",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/outMessage"
+          },
+          "minItems": 1
+        },
+        "period": {
+          "title": "Period",
+          "description": "The time in milliseconds between each message",
+          "type": "number",
+          "minimum": 0,
+          "default": 10
+        }
+      }
+    },
+    "responder": {
+      "type": "object",
+      "properties": {
+        "device_type": {
+          "type": "string",
+          "default": "responder",
+          "enum": ["responder"]
+        },
+        "name": {
+          "title": "Device Name",
+          "type": "string"
+        },
+        "hooks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/responderHook"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "inMessage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "CAN Arbitration ID for the message",
+          "type": "number"
+        }
+      }
+    },
+    "outMessage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "CAN Arbitration ID for the message",
+          "type": "number"
+        },
+        "data": {
+          "description": "CAN data is 0 to 8 bytes long",
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 255
+          },
+          "minItems": 0,
+          "maxItems": 8
+        }
+      }
+    }
+  }
+}
