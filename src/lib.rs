@@ -1,5 +1,5 @@
 
-mod config;
+pub mod config;
 pub mod device_manager;
 use config::Config;
 
