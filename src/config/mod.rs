@@ -62,6 +62,14 @@ pub struct Config {
     devices: Vec<Device>
 }
 
+impl<P: AsRef<std::path::Path>> From<P> for Config {
+    fn from(path: P) -> Config {
+        let json = std::fs::read(path).unwrap();
+        let config: Config = serde_json::from_slice(&json).unwrap();
+        config
+    }
+}
+
 impl Config {
     /**
      * Returns the list of Producers from the device list

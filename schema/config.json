@@ -101,12 +101,8 @@
           "title": "Device Name",
           "type": "string"
         },
-        "hooks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/responderHook"
-          },
-          "minItems": 1
+        "hook": {
+          "$ref": "#/definitions/responderHook"
         }
       }
     },

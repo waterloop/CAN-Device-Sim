@@ -38,6 +38,43 @@ impl StartDevice for &config::Producer {
         }
     }
 }
+const CAN_SFF_MASK: u32 = 0x000007FF; // https://docs.huihoo.com/doxygen/linux/kernel/3.7/can_8h.html
+impl StartDevice for &config::Responder {
+    fn start(&self, can_interface: &str) -> Worker {
+        let (sender, receiver) = std::sync::mpsc::channel::<WorkerMessage>();
+        let ref hook = self.hook;
+        let latency = hook.latency;
+        let can_handle = CANSocket::open(can_interface).unwrap();
+        let out_message = socketcan::CANFrame::new(hook.outgoing_message.id, &hook.outgoing_message.data, false, false).unwrap();
+        let filters = [
+            socketcan::CANFilter::new(
+                hook.incomming_message.id,
+                CAN_SFF_MASK
+            ).unwrap()
+        ];
+        can_handle.set_filter(&filters).unwrap();
+        can_handle.set_read_timeout(std::time::Duration::from_secs(1)).unwrap();
+        can_handle.set_nonblocking(true).unwrap();
+        let handle = std::thread::Builder::new().name(format!("[PRODUCER THREAD]: {}", self.name)).spawn(move | | {
+            loop {
+                // Non-blocking read
+                if let Ok(_frame) = can_handle.read_frame() {
+                    std::thread::sleep(std::time::Duration::from_millis(latency.into()));
+                    can_handle.write_frame(&out_message).unwrap();
+                }
+                match receiver.try_recv() {
+                    Ok(WorkerMessage::Stop) => return,
+                    Err(std::sync::mpsc::TryRecvError::Disconnected) => return,
+                    Err(std::sync::mpsc::TryRecvError::Empty) => {},
+                }
+            }
+        }).unwrap();
+        Worker {
+            handle,
+            sender
+        }
+    }
+}
 
 struct Worker {
     handle: std::thread::JoinHandle<()>,
@@ -125,6 +162,9 @@ impl<'config>  DeviceManager<'config, INITIALIZATION> {
     pub fn start_devices(mut self) -> DeviceManager<'config, RUNNING> {
         for producer in self.producers.iter() {
             self.workers.push(Worker::start(self.can_interface, producer))
+        }
+        for responder in self.responders.iter() {
+            self.workers.push(Worker::start(self.can_interface, responder))
         }
         DeviceManager {
             can_interface: self.can_interface,

@@ -122,6 +122,11 @@ dependencies = [
 ]
 
 [[package]]
+name = "text_io"
+version = "0.1.9"
+source = "git+https://github.com/Quinn1876/rust-si?branch=Fix-Multiple-Read-Error#fca1a68272b0ad55ab0dc104e5898a048a7c1557"
+
+[[package]]
 name = "try_from"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -140,4 +145,5 @@ dependencies = [
  "serde",
  "serde_json",
  "socketcan",
+ "text_io",
 ]

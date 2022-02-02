@@ -2,7 +2,7 @@ use serde::{ Serialize, Deserialize };
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct InMessage {
-    id: u8
+    pub id: u32
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
@@ -15,7 +15,7 @@ pub struct OutMessage {
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Hook {
-    incomming_message: InMessage,
-    latency: u32,
-    outgoing_message: OutMessage
+    pub incomming_message: InMessage,
+    pub latency: u32,
+    pub outgoing_message: OutMessage
 }
