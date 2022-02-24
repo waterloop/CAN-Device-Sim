@@ -16,9 +16,9 @@ pub fn run_devices<'config>(device_config: &'config Config, can_interface: &'sta
 }
 
 
-pub fn get_configs() -> std::io::Result<Vec<String>>  {
+pub fn get_configs(directory_path: &str) -> std::io::Result<Vec<String>>  {
     let mut files: Vec<String> = Vec::new();
-    for entry in std::fs::read_dir("./configs")? {
+    for entry in std::fs::read_dir(directory_path)? {
         let entry = entry?;
         let path = entry.path();
         if !path.is_dir() {
