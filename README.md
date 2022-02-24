@@ -18,3 +18,5 @@ Once in the web UI, you should be able to create config files which will be save
 The Cli should prompt you to choose a config from a list of configs that you have in your configs folder. After choosing the config, open another termial and run `candump vcan0`. If using a real
 can network, aptly replace vcan0 with can0. In either case, you should see the appropriate messages being sent from any producers being sent. To test responders, send a can message to their Hook
 id and watch for the response id to appear.
+
+3.1 Run with arguments. To run with arguments type `cargo run -- ` followed by the arguments that you would like to run. For example, to see a list of available options, type `cargo run -- --help` 
