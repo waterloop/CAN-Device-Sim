@@ -1,0 +1,333 @@
+{
+  "info": {
+    "subteam": "Firmware",
+    "dateCreated": "Wed Feb 02 2022",
+    "author": "Quinn Hodges"
+  },
+  "devices": [
+    {
+      "device_type": "producer",
+      "name": "BMS_HEALTH_CHECK",
+      "messages": [
+        {
+          "id": 1,
+          "data": [
+            0,
+            0,
+            0,
+            63,
+            0,
+            0,
+            160,
+            66
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "MOTOR_CONTROLLER_HEALTH_CHECK",
+      "messages": [
+        {
+          "id": 2,
+          "data": [
+            0,
+            0,
+            160,
+            66,
+            0,
+            0,
+            192,
+            65
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "responder",
+      "hook": {
+        "incommingMessage": {
+          "id": 0
+        },
+        "outgoingMessage": {
+          "id": 11,
+          "data": [
+            0
+          ]
+        },
+        "latency": 100
+      },
+      "name": "BMS_STATE_CHANGE_ACK_NACK"
+    },
+    {
+      "device_type": "producer",
+      "name": "BMS_DATA_1",
+      "messages": [
+        {
+          "id": 12,
+          "data": [
+            0,
+            0,
+            192,
+            65,
+            0,
+            0,
+            160,
+            66
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "BMS_DATA_2",
+      "messages": [
+        {
+          "id": 13,
+          "data": [
+            0,
+            0,
+            140,
+            66,
+            0,
+            0,
+            192,
+            63
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "BMS_DATA_3",
+      "messages": [
+        {
+          "id": 14,
+          "data": [
+            0,
+            0,
+            240,
+            65,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "responder",
+      "hook": {
+        "incommingMessage": {
+          "id": 0
+        },
+        "outgoingMessage": {
+          "id": 21,
+          "data": [
+            0
+          ]
+        },
+        "latency": 150
+      },
+      "name": "MOTOR_CONTROLLER_STATE_CHANGE_ACK_NACK"
+    },
+    {
+      "device_type": "producer",
+      "name": "MOTOR_CONTROLLER_DATA_1",
+      "messages": [
+        {
+          "id": 22,
+          "data": [
+            0,
+            0,
+            240,
+            65,
+            0,
+            0,
+            0,
+            64
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "MOTOR_CONTROLLER_DATA_2",
+      "messages": [
+        {
+          "id": 23,
+          "data": [
+            0,
+            0,
+            0,
+            64,
+            0,
+            0,
+            192,
+            65
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "POD_SPEED",
+      "messages": [
+        {
+          "id": 31,
+          "data": [
+            0,
+            0,
+            112,
+            65
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "PRESSURE_SENSOR_HIGH",
+      "messages": [
+        {
+          "id": 32,
+          "data": [
+            0,
+            0,
+            175,
+            67
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "PRESSURE_SENSOR_LOW_1",
+      "messages": [
+        {
+          "id": 33,
+          "data": [
+            205,
+            204,
+            199,
+            66
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "PRESSURE_SENSOR_LOW_2",
+      "messages": [
+        {
+          "id": 34,
+          "data": [
+            102,
+            102,
+            197,
+            66
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "5V_CURRENT",
+      "messages": [
+        {
+          "id": 48,
+          "data": [
+            195,
+            245,
+            168,
+            62
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "12V_CURRENT",
+      "messages": [
+        {
+          "id": 49,
+          "data": [
+            215,
+            163,
+            48,
+            63
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "24V_CURRENT",
+      "messages": [
+        {
+          "id": 50,
+          "data": [
+            92,
+            143,
+            130,
+            63
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "TORCHIC_1",
+      "messages": [
+        {
+          "id": 64,
+          "data": [
+            0,
+            0,
+            32,
+            66,
+            0,
+            0,
+            52,
+            66
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "TORCHIC_2",
+      "messages": [
+        {
+          "id": 65,
+          "data": [
+            0,
+            0,
+            32,
+            66,
+            0,
+            0,
+            52,
+            66
+          ]
+        }
+      ],
+      "period": 200
+    }
+  ]
+}
