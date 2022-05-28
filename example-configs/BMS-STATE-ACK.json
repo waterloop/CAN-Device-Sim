@@ -1,0 +1,81 @@
+{
+  "info": {
+    "subteam": "Firmware",
+    "dateCreated": "Wed Feb 02 2022",
+    "author": "Quinn Hodges"
+  },
+  "devices": [
+    {
+      "device_type": "producer",
+      "name": "BMS_HEALTH_CHECK",
+      "messages": [
+        {
+          "id": 1,
+          "data": [
+            0,
+            0,
+            0,
+            63,
+            0,
+            0,
+            160,
+            66
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "producer",
+      "name": "MOTOR_CONTROLLER_HEALTH_CHECK",
+      "messages": [
+        {
+          "id": 2,
+          "data": [
+            0,
+            0,
+            160,
+            66,
+            0,
+            0,
+            192,
+            65
+          ]
+        }
+      ],
+      "period": 200
+    },
+    {
+      "device_type": "responder",
+      "hook": {
+        "incommingMessage": {
+          "id": 0
+        },
+        "outgoingMessage": {
+          "id": 11,
+          "data": [
+            0
+          ]
+        },
+        "latency": 100
+      },
+      "name": "BMS_STATE_CHANGE_ACK_NACK"
+    },
+    {
+      "device_type": "responder",
+      "hook": {
+        "incommingMessage": {
+          "id": 0
+        },
+        "outgoingMessage": {
+          "id": 21,
+          "data": [
+            0
+          ]
+        },
+        "latency": 150
+      },
+      "name": "MOTOR_CONTROLLER_STATE_CHANGE_ACK_NACK"
+    }
+  ]
+}
