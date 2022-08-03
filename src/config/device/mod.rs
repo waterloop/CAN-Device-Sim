@@ -1,8 +1,8 @@
 use serde::{ Serialize, Deserialize };
 
-mod common;
 mod producer;
 mod responder;
+pub mod common;
 pub use responder::Responder;
 pub use producer::Producer;
 

@@ -22,7 +22,6 @@ impl StartDevice for &config::Producer {
         let handle = std::thread::Builder::new().name(format!("[PRODUCER THREAD]: {}", self.name)).spawn(move | | {
             let mut message_counter = 0;
             loop {
-                std::thread::sleep(std::time::Duration::from_millis(period.into()));
                 match receiver.try_recv() {
                     Ok(WorkerMessage::Stop) => return,
                     Err(std::sync::mpsc::TryRecvError::Disconnected) => return,
@@ -30,6 +29,7 @@ impl StartDevice for &config::Producer {
                 }
                 can_handle.write_frame(&messages[message_counter]).unwrap();
                 message_counter = (message_counter + 1) % messages.len();
+                std::thread::sleep(std::time::Duration::from_millis(period.into()));
             }
         }).unwrap();
         Worker {
@@ -38,6 +38,7 @@ impl StartDevice for &config::Producer {
         }
     }
 }
+
 const CAN_SFF_MASK: u32 = 0x000007FF; // https://docs.huihoo.com/doxygen/linux/kernel/3.7/can_8h.html
 impl StartDevice for &config::Responder {
     fn start(&self, can_interface: &str) -> Worker {
