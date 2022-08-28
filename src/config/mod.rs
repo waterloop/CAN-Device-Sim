@@ -44,7 +44,8 @@ mod device;
 pub use device::{
     Device,
     Producer,
-    Responder
+    Responder,
+    common
 };
 
 
