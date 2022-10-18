@@ -54,6 +54,7 @@
         "outgoingMessage": {
           "id": 11,
           "data": [
+            0,
             0
           ]
         },
@@ -130,6 +131,7 @@
         "outgoingMessage": {
           "id": 21,
           "data": [
+            0,
             0
           ]
         },
